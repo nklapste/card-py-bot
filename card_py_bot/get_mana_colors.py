@@ -7,6 +7,8 @@ import urllib.request
 
 def read_in_website(input_link):
     """
+    Non BeautifulSoup parsing for raw extraction of URL response.
+
     ARGS:
 
     RETURNS:
@@ -70,7 +72,7 @@ def recuse_mana(start_line_counter, lines):
                     try:
                         oldline = mana_dict[oldline].strip()
                     except KeyError:
-                        for i in range(int(oldline)):
+                        for mana_count in range(int(oldline)):
                             mana_tot.append(":white_circle:")
                         break
 
@@ -115,15 +117,15 @@ def get_img_link(line):
 def get_card_mana_string(lines):
 
     line_counter = 0
-    grabbed_mana = 0
+    grabbed_mana = False
 
     for i in range(len(lines)):
         line = lines[i]
 
-        if line.find('Mana Cost:</div>') >= 0 and grabbed_mana == 0:
+        if line.find('Mana Cost:</div>') >= 0 and not grabbed_mana:
             card_mana = recuse_mana(i, lines)
             card_mana = str(card_mana)
-            grabbed_mana = 1
+            grabbed_mana = True
 
         if line.find('<div class="cardImage">') >= 0:
             img_link = get_img_link(lines[i + 1])
