@@ -29,7 +29,7 @@ async def on_message(message):
 
 
 def main():
-    BOT.run('MzE4ODc5MzQwODQ0Njc5MTY4.DA4zZw.8A4F4TLhkW1ehw8p7T_HffGeWcY')
+    BOT.run('MzIxNzgxNzEzNTAyMDc2OTMw.DBj7Uw.KymkGSfhgfTUqdDkJrEf8tXdCxw')
 
 
 if __name__ == "__main__":
