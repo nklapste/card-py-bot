@@ -1,4 +1,5 @@
-from setuptools import setup
+from setuptools import setup, find_packages
+
 
 setup(
     name="card-py-bot",
@@ -7,23 +8,17 @@ setup(
     version="1.0",
     description="A Discord Bot for parsing magic card links",
     url="https://github.com/nklapste/card-py-bot",
-    download_url="https://github.com/nklapste/card-py-bot/archive/master.zip",
+    download_url="https://github.com/nklapste/card-py-bot/archive/1.0.tar.gz",
     packages=["card_py_bot"],
     package_data={
         '': ['README.md'],
-        'card-py-bot': ['mana_config.txt', 'MANA_ICONS/*.gif']
+        'card_py_bot': ['mana_config.txt', 'MANA_ICONS/*.gif'],
     },
-
     install_requires=[
         'beautifulsoup4',
-        'discord.py'
+        'discord.py',
     ],
     entry_points={
-        'console_scripts': [
-            'card-py-bot = card_py_bot.__main__:main'
-        ],
+        'console_scripts': ['card-py-bot = card_py_bot.py_d_bot:main'],
     },
-    classifiers=[
-        'Programming Language :: Python :: 3.5'
-    ]
 )
