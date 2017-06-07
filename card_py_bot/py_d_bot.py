@@ -1,6 +1,6 @@
 """ Main .py file for running the card-py-bot """
 from discord.ext import commands
-import get_card
+from card_py_bot import get_card
 
 DESCRIPTION = '''Toasterstein's card-py-bot: An auto magic card link parsing
 and embedding Discord bot!'''

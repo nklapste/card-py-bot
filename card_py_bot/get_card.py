@@ -6,7 +6,7 @@ import re
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-import get_mana_colors
+from card_py_bot import get_mana_colors
 import html5lib
 
 
