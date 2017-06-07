@@ -7,8 +7,7 @@ import urllib.request
 
 def read_in_website(input_link):
     """
-    Non BeautifulSoup parsing for raw extraction of URL response.
-
+    Non BeautifulSoup parsing for raw extraction of URL response
     ARGS:
 
     RETURNS:
@@ -32,7 +31,6 @@ def read_in_website(input_link):
 
 def make_mana_dict():
     mana_dict = dict()
-
     mana_colors_list = [
         'Green', 'Red', 'Blue', 'Black', 'White',
         'Phyrexian Blue', 'Phyrexian Red', 'Phyrexian Green',
@@ -60,7 +58,6 @@ def make_mana_dict():
 
 def recuse_mana(start_line_counter, lines):
     mana_tot = []
-
     mana_dict = make_mana_dict()
 
     def recuse_mana_r(line_pos, line):
@@ -72,7 +69,7 @@ def recuse_mana(start_line_counter, lines):
                     try:
                         oldline = mana_dict[oldline].strip()
                     except KeyError:
-                        for mana_count in range(int(oldline)):
+                        for color_count in range(int(oldline)):
                             mana_tot.append(":white_circle:")
                         break
 
@@ -118,7 +115,7 @@ def get_card_mana_string(lines):
 
     line_counter = 0
     grabbed_mana = False
-
+    img_link = "No image link found"
     for i in range(len(lines)):
         line = lines[i]
 

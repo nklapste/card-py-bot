@@ -6,8 +6,8 @@ import re
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-
-from card_py_bot.get_mana_colors import get_mana
+import get_mana_colors
+import html5lib
 
 
 def grab_html_from_url(url):
@@ -22,7 +22,7 @@ def grab_html_from_url(url):
     except Exception:
         print("ERROR: CHECK URL")
 
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, 'html5lib')
 
     lines = []
     oldline = ""
@@ -97,7 +97,11 @@ def grab_html_from_url(url):
     card_string += 'Card Converted Mana: "{}"\n'.format(card_c_mana)
     card_string += 'Card Type: "{}"\n'.format(card_type)
     card_string += 'Card Text: {}\n\n'.format(card_text)
-    card_string += "http://gatherer.wizards.com/" + img_link_prt
+
+    if img_link_prt == "No image link found":
+        card_string += img_link_prt
+    else:
+        card_string += "http://gatherer.wizards.com/" + img_link_prt
     return card_string
 
 

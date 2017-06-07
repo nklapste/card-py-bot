@@ -1,11 +1,11 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 setup(
     name="card-py-bot",
     author="Nathan Klapstein",
     author_email="nklapste@ualberta.ca",
-    version="1.2",
+    version="1.3",
     description="A Discord Bot for parsing magic card links",
     url="https://github.com/nklapste/card-py-bot",
     download_url="https://github.com/nklapste/card-py-bot/archive/1.2.tar.gz",

@@ -1,6 +1,6 @@
 """ Main .py file for running the card-py-bot """
 from discord.ext import commands
-from card_py_bot.get_card import grab_html_from_url
+import get_card
 
 DESCRIPTION = '''Toasterstein's card-py-bot: An auto magic card link parsing
 and embedding Discord bot!'''
@@ -21,7 +21,7 @@ async def on_message(message):
     """ Standard message handler with card and shush functions """
     if "http://gatherer.wizards.com/Pages/Card" in message.content:
         print("likely inputted card url:", message.content)
-        card_string = grab_html_from_url(message.content)
+        card_string = get_card.grab_html_from_url(message.content)
 
         await BOT.send_message(message.channel, card_string)
 
