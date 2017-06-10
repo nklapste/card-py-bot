@@ -5,7 +5,7 @@ setup(
     name="card-py-bot",
     author="Nathan Klapstein",
     author_email="nklapste@ualberta.ca",
-    version="1.4",
+    version="2.0",
     description="A Discord Bot for parsing magic card links",
     url="https://github.com/nklapste/card-py-bot",
     download_url="https://github.com/nklapste/card-py-bot/archive/1.4.tar.gz",
@@ -20,6 +20,6 @@ setup(
         'discord.py',
     ],
     entry_points={
-        'console_scripts': ['card-py-bot = card_py_bot.py_d_bot:main'],
+        'console_scripts': ['card-py-bot = card_py_bot.card_bot:main'],
     },
 )
