@@ -41,7 +41,10 @@ norm_id_list = [
     ":2gm:",
     ":2bm:",
     ":2rm:",
-    ":2bm:"
+    ":2bm:",
+    ":Tap:",
+    ":Untap:",
+    ":Energy:"
 ]
 
 
@@ -49,6 +52,6 @@ def print_ids():
     config_string = ("RECOPY THIS AND PASTE THIS INTO CHAT THEN TAKE THE" +
                      "OUTPUT AND SAVE IT INTO CONFIG.TXT\n")
     for raw_id in norm_id_list:
-        config_string += ("\\\\" + raw_id + "\n")
+        config_string += ("\\\\" + raw_id + "\\\\n")
 
     return config_string
