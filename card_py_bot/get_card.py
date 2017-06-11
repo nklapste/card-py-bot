@@ -107,6 +107,10 @@ def parse_artist(artist_div):
     return artist
 
 
+def parse_expansion(expansion_div):
+    pass
+
+
 def scrape_wizzards(url='http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=74626'):
     '''
     ARGS:
@@ -159,13 +163,11 @@ def card_data2string(card_data):
         if element in card_data:
             if element == 'image_url':
                 out_string = out_string + card_data[element]
+            elif element == 'Flavor Text':
+                out_string = out_string + '**' + element + ":**" +\
+                             '*' + card_data[element] + '*\n'
             else:
-                out_string = out_string + element + ": " + card_data[element] + '\n'
+                out_string = out_string + '**' + element + ":** " +\
+                             card_data[element] + '\n'
 
     return out_string
-
-
-if __name__ == "__main__":
-    card_data2string(scrape_wizzards('http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=383242'))
-    card_data2string(scrape_wizzards('http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=212578'))
-    card_data2string(scrape_wizzards('http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=220517'))
