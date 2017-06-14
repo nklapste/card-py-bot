@@ -2,7 +2,6 @@
 
 A magic card link auto card data parser and embedder.
 
-
 ### Installation and Use
 To install card-py-bot using pip3 simply enter within your terminal:
 

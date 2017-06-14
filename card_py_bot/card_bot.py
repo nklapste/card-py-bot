@@ -2,19 +2,21 @@
 import argparse
 from card_py_bot import config_emoji
 from discord.ext import commands
-from card_py_bot.get_card import scrape_wizzards, card_data2string
+import discord
+from card_py_bot.get_card import scrape_wizzards, card_data2string, card_data2embed
 
 DESCRIPTION = '''Toasterstein's card-py-bot: An auto magic card link parsing
 and embedding Discord bot!'''
 
-BOT = commands.Bot(command_prefix='?', description=DESCRIPTION)
-
+# BOT = commands.Bot(command_prefix='?', description=DESCRIPTION)
+BOT = discord.Client()
 
 @BOT.event
 async def on_ready():
     """ Startup callout/setup """
     print('Logged in as')
     print(BOT.user.id)
+    print("Avatar url:", BOT.user.avatar_url)
     print('------')
 
 
@@ -23,10 +25,15 @@ async def on_message(message):
     """ Standard message handler with card and shush functions """
     if "http://gatherer.wizards.com/Pages/Card" in message.content:
         print("likely inputted card url:", message.content)
-        card_string = card_data2string(scrape_wizzards(message.content))
-        await BOT.send_message(message.channel, card_string)
+        card_data = scrape_wizzards(message.content)
+        card_em = card_data2embed(card_data, message.content, BOT.user.avatar_url)
+        await BOT.send_message(message.channel, embed=card_em)
 
-    await BOT.process_commands(message)
+        # TODO: old
+        # card_string = card_data2string(card_data)
+        # await BOT.send_message(message.channel, card_string)
+    # 
+    # await BOT.process_commands(message)
 
 
 def main():

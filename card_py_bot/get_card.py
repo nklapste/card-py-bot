@@ -6,6 +6,7 @@ import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import html5lib
+import discord
 
 
 def make_mana_dict():
@@ -20,7 +21,8 @@ def make_mana_dict():
         'Blue or Red', 'White or Black', 'White or Blue',
         'Blue or Black', 'Black or Red', 'Red or Green',
         'Green or White', 'Two or White', 'Two or Green',
-        'Two or Black', 'Two or Red', 'Two or Blue'
+        'Two or Black', 'Two or Red', 'Two or Blue',
+        'Tap', 'Untap', 'Energy'
     ]
 
     config_file = open(os.path.dirname(
@@ -155,7 +157,6 @@ def scrape_wizzards(url='http://gatherer.wizards.com/Pages/Card/Details.aspx?mul
 
 
 def card_data2string(card_data):
-
     element_list = ['Card Name', 'Mana Cost', 'Types', 'Rarity', 'Card Text',
                     'Flavor Text', 'P/T', 'Artist', 'image_url']
     out_string = ''
@@ -171,3 +172,28 @@ def card_data2string(card_data):
                              card_data[element] + '\n'
 
     return out_string
+
+
+def card_data2embed(card_data, in_url, avatar_url):
+    element_list = ['Mana Cost', 'Types', 'Rarity', 'Card Text',
+                    'Flavor Text', 'P/T', 'Artist', 'image_url']
+
+    try:
+        card_name = card_data['Card Name']
+        embed_title = '**Card Name**\n[{}]({})'.format(card_name, in_url)
+    except:
+        embed_title = 'Error: giving raw url:' + in_url
+
+    em = discord.Embed(description=embed_title, colour=0xDEADBF)
+    em.set_footer(text='card-py-bot by Nathan Klapstein', icon_url=avatar_url)
+    # em.set_thumbnail(url=avatar_url)
+    for element in element_list:
+        if element in card_data:
+            if element == 'image_url':
+                em.set_image(url=card_data[element])
+            elif element == 'Flavor Text':
+                em.add_field(name=element, value='*' + card_data[element] + '*')
+            else:
+                em.add_field(name=element, value=card_data[element], inline=False)
+
+    return em
