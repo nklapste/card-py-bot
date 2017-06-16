@@ -32,7 +32,7 @@ async def on_message(message):
         # TODO: old
         # card_string = card_data2string(card_data)
         # await BOT.send_message(message.channel, card_string)
-    # 
+    #
     # await BOT.process_commands(message)
 
 
@@ -41,7 +41,6 @@ def main():
 
     # TODO REMOVE DEFAULT FOR RELEASE
     parser.add_argument('-t', '--token', type=str,
-                        default='MzIxNzgxNzEzNTAyMDc2OTMw.DBj7Uw.KymkGSfhgfTUqdDkJrEf8tXdCxw',
                         help='Discord Token for the bot!')
 
     args = parser.parse_args()
