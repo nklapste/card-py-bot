@@ -41,6 +41,7 @@ async def print_setup():
     """ Print the emoji config strings for setting up the mana icon config """
     await BOT.say(print_ids())
 
+
 @BOT.command(pass_context=True)
 async def save_setup(ctx):
     """ Save any user printed emoji config strings to the card_py_bot """
