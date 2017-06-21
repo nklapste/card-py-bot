@@ -4,9 +4,11 @@ on magic cards """
 import os
 
 from urllib.request import urlopen
-from bs4 import BeautifulSoup
-import html5lib
+
 import discord
+import html5lib
+
+from bs4 import BeautifulSoup
 
 
 def make_mana_dict():
@@ -42,6 +44,10 @@ WIZZARDS_BASE_URL = 'http://gatherer.wizards.com/'
 
 
 def parse_cardtextbox(cardtextbox_div):
+    """
+    parse an arbitrary text box and also extract arbitrary elements
+    like mana (objects and text)
+    """
     # print("parse_cardtextbox:", cardtextbox_div)
     def extract_content(content):
         content_string = ""
@@ -68,6 +74,7 @@ def parse_cardtextbox(cardtextbox_div):
 
 
 def parse_base_value(value_div):
+    """ parse out a simple element like an label value name (text) """
     # print("parse_base_value:",value_div)
     value_string = value_div.string.strip()
     # print("parse_base_value output:", value_string)
@@ -77,6 +84,7 @@ def parse_base_value(value_div):
 
 
 def parse_mana(mana_div):
+    """ parse the mana cost of a card (objects) """
     mana_string = ""
     for mana_content in mana_div.children:
         try:
@@ -89,6 +97,7 @@ def parse_mana(mana_div):
 
 
 def parse_image(image_div):
+    """ parse the handler url for a card's image (url) """
     # print("parse_image:", image_div)
     image_handler = image_div.img['src'].lstrip('../../')
     # print("parse_image output:", image_handler)
@@ -96,6 +105,7 @@ def parse_image(image_div):
 
 
 def parse_rarity(rarity_div):
+    """ parse the rarity of a card (text) """
     # print("parse_rarity:", rarity_div)
     rarity = rarity_div.span.string
     # print("parse_rarity output:", rarity)
@@ -103,22 +113,24 @@ def parse_rarity(rarity_div):
 
 
 def parse_artist(artist_div):
+    """ parse the artist name of a card (text) """
     # print("parse_artist:", artist_div)
     artist = artist_div.a.string
     # print("artist_div output:", artist)
     return artist
 
 
+# TODO
 def parse_expansion(expansion_div):
+    """ parse the expansion name and set image handler (text and url) """
     pass
 
 
 def scrape_wizzards(url='http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=74626'):
-    '''
-    ARGS:
-
-    RETURNS:
-    '''
+    """
+    scrape a wotc magic card webpage and extract the cards details for
+    embeding into a discord message
+    """
     html = urlopen(url)
     soup = BeautifulSoup(html, 'html5lib')
 
@@ -157,6 +169,10 @@ def scrape_wizzards(url='http://gatherer.wizards.com/Pages/Card/Details.aspx?mul
 
 
 def card_data2string(card_data):
+    """
+    take scraped card data and convert it into a raw string for discord
+    """
+
     element_list = ['Card Name', 'Mana Cost', 'Types', 'Rarity', 'Card Text',
                     'Flavor Text', 'P/T', 'Artist', 'image_url']
     out_string = ''
@@ -175,6 +191,10 @@ def card_data2string(card_data):
 
 
 def card_data2embed(card_data, in_url, avatar_url):
+    """
+    take scraped card data and format it into a discord embed
+    """
+
     element_list = ['Mana Cost', 'Types', 'Rarity', 'Card Text',
                     'Flavor Text', 'P/T', 'Artist', 'image_url']
 
