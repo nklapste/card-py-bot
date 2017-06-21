@@ -1,3 +1,0 @@
-[console_scripts]
-card-py-bot = card_py_bot.card_bot:main
-
