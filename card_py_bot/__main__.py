@@ -16,7 +16,7 @@ def main():
                                                  "card's details into a "
                                                  "discord message")
     parser.add_argument("-t", "--token", type=str, required=True,
-                        help="Discord Token for the bot")
+                        help="File containing a Discord token for the bot")
 
     group = parser.add_argument_group(title="LOGGING")
     group.add_argument("-v", "--verbose", action="store_true",
@@ -55,8 +55,13 @@ def main():
         handlers=handlers
     )
 
+    # read the token file and extract the token
+    token_file = open(args.token)
+    token = str(token_file.read()).strip()
+    token_file.close()
+    
     # run the bot
-    BOT.run(args.token)
+    BOT.run(token)
 
     return 0
 
