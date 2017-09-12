@@ -1,4 +1,4 @@
-""" card-py-bot Discord bot api """
+"""card-py-bot Discord bot api"""
 
 from logging import getLogger
 import os
@@ -20,7 +20,7 @@ __log__ = getLogger(__name__)
 
 @BOT.event
 async def on_ready():
-    """ Startup logged callout/setup """
+    """Startup logged callout/setup"""
     __log__.info("logged in as: {}".format(BOT.user.id))
 
 
@@ -36,13 +36,13 @@ async def on_message(message):
 
 @BOT.command()
 async def print_setup():
-    """ Print the emoji config strings for setting up the mana icon config """
+    """Print the emoji config strings for setting up the mana icon config"""
     await BOT.say(print_ids())
 
 
 @BOT.command(pass_context=True)
 async def save_setup(ctx):
-    """ Save any user printed emoji config strings to the card_py_bot """
+    """Save any user printed emoji config strings to the card_py_bot"""
     async for message in BOT.logs_from(ctx.message.channel, limit=1):
         config_f = open(os.path.join(BASEDIR, "mana_config.txt"), "w")
         emoji_ids =\

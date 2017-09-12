@@ -1,4 +1,4 @@
-""" main argparse script entry point for the card-py-bot """
+"""Main script entry point for the card-py-bot"""
 
 import argparse
 import logging
@@ -9,7 +9,7 @@ from card_py_bot.card_bot import BOT
 
 
 def main():
-    """ main argparse startup script for the card-py-bot """
+    """Startup script for the card-py-bot"""
     parser = argparse.ArgumentParser(description="card-py-bot: a Discord bot "
                                                  "that web scrapes Magic card "
                                                  "links and embeds the "

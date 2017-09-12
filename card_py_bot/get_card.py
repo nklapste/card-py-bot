@@ -1,4 +1,4 @@
-""" module for parsing the WOTC website for data on magic cards """
+"""Module for parsing the WOTC website for data on magic cards"""
 
 from logging import getLogger
 import os
@@ -46,10 +46,7 @@ MANA_DICT = make_mana_dict()
 
 
 def parse_cardtextbox(cardtextbox_div) -> str:
-    """
-    parse an arbitrary text box and also extract arbitrary elements
-    like mana (objects and text)
-    """
+    """Parse an arbitrary text box and also extract elements like mana"""
     def extract_content(content):
         content_string_ = ""
         try:
@@ -74,14 +71,14 @@ def parse_cardtextbox(cardtextbox_div) -> str:
 
 
 def parse_base_value(value_div) -> str:
-    """ parse out a simple element like an label value name (text) """
+    """Parse out a simple element like an label value name"""
     value_string = value_div.string.strip()
     value_string = re.sub("â€”", "--- ", value_string)
     return value_string
 
 
 def parse_mana(mana_div) -> str:
-    """ parse the mana cost of a card (objects) """
+    """Parse the mana cost of a card"""
     mana_string = ""
     for mana_content in mana_div.children:
         try:
@@ -94,34 +91,32 @@ def parse_mana(mana_div) -> str:
 
 
 def parse_image(image_div) -> str:
-    """ parse the handler url for a card's image (url) """
+    """Parse the handler url for a card's image"""
     image_handler = image_div.img["src"].lstrip("../../")
     return image_handler
 
 
 def parse_rarity(rarity_div) -> str:
-    """ parse the rarity of a card (text) """
+    """Parse the rarity of a card"""
     rarity = rarity_div.span.string
     return rarity
 
 
 def parse_artist(artist_div) -> str:
-    """ parse the artist name of a card (text) """
+    """Parse the artist name of a card"""
     artist = artist_div.a.string
     return artist
 
 
 # TODO
 def parse_expansion(expansion_div):
-    """ parse the expansion name and set image handler (text and url) """
+    """Parse the expansion name and set image handler"""
     pass
 
 
 def scrape_wizzards(url: str) -> dict:
-    """
-    Scrape a WOTC magic card webpage and extract the cards details for
-    embedding into a Discord message.
-    """
+    """Scrape a WOTC magic card webpage and extract the cards details for
+    embedding into a Discord message"""
     __log__.debug("Scraping WOTC Magic card at: {}".format(url))
     html = urlopen(url)
     soup = BeautifulSoup(html, "html5lib")
@@ -157,10 +152,7 @@ def scrape_wizzards(url: str) -> dict:
 
 
 def card_string(card_data: dict) -> str:
-    """
-    Take scraped card data and convert it into a raw string for a
-    Discord message.
-    """
+    """Convert scraped card data into a raw string for a Discord message"""
 
     element_list = ["Card Name", "Mana Cost", "Types", "Rarity", "Card Text",
                     "Flavor Text", "P/T", "Artist", "image_url"]
@@ -180,10 +172,7 @@ def card_string(card_data: dict) -> str:
 
 
 def card_embed(card_data: dict, in_url: str, avatar_url: str):
-    """
-    Take scraped WOTC Magic card data and format it into a Discord
-    embed message
-    """
+    """Format scraped WOTC Magic card data into a Discord embed"""
 
     element_list = ["Mana Cost", "Types", "Rarity", "Card Text",
                     "Flavor Text", "P/T", "Artist", "image_url"]

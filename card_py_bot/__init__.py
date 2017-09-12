@@ -1,6 +1,4 @@
-"""
-card-py-bot
-
+"""card-py-bot
 
 A Discord.py bot server that allows for user typed links of Magic cards (based
 off of the http://gatherer.wizards.com/Pages/Card Magic card info repository)

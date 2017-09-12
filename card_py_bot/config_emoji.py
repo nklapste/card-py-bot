@@ -49,9 +49,8 @@ norm_id_list = [
 
 
 def print_ids():
-    """
-    return a string of all the mana ids (in order) for config setup in discord
-    """
+    """Return a string of all the mana ids (in order) for config setup
+    in discord"""
     config_string = "?save_setup\n"
     for raw_id in norm_id_list:
         config_string += ("\\\\{}\n".format(raw_id))
