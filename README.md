@@ -11,10 +11,10 @@ After installing with pip3, entering the card-py-bot startup command within
 terminal will spool up an instance of the card-py-bot. By default this command
 is as follows:
 
-```$ card-py-bot -t "your token string here"```
+```$ card-py-bot -t "path to file containing token string"```
 
 ### Requirements
-**Python3.6:** This bot utilizes python3.6 to utilize webscraping on WTC
+**Python3.6:** This bot utilizes python3.6 to utilize webscraping on WOTC
 MTG's main card website. Python3.6 (and pip) can be downloaded for multiple
 OSes here:
 

@@ -152,7 +152,7 @@ def scrape_wizzards(url: str) -> dict:
 
 
 def card_string(card_data: dict) -> str:
-    """Convert scraped card data into a raw string for a Discord message"""
+    """Format scraped card data into a Discord message"""
 
     element_list = ["Card Name", "Mana Cost", "Types", "Rarity", "Card Text",
                     "Flavor Text", "P/T", "Artist", "image_url"]
@@ -172,7 +172,7 @@ def card_string(card_data: dict) -> str:
 
 
 def card_embed(card_data: dict, in_url: str, avatar_url: str):
-    """Format scraped WOTC Magic card data into a Discord embed"""
+    """Format scraped card data into a Discord embed"""
 
     element_list = ["Mana Cost", "Types", "Rarity", "Card Text",
                     "Flavor Text", "P/T", "Artist", "image_url"]

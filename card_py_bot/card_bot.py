@@ -10,8 +10,7 @@ from card_py_bot.config_emoji import print_ids
 from card_py_bot.get_card import scrape_wizzards, card_embed
 
 
-DESCRIPTION = """card-py-bot: An WOTC Magic card link parsing
-and embedding Discord bot!"""
+DESCRIPTION = """card-py-bot: An WOTC Magic card link embedding Discord bot!"""
 
 BOT = commands.Bot(command_prefix="?", description=DESCRIPTION)
 
@@ -26,7 +25,7 @@ async def on_ready():
 
 @BOT.event
 async def on_message(message):
-    """ Standard message handler with card and shush functions """
+    """Standard message handler with card and shush functions"""
     if "http://gatherer.wizards.com/Pages/Card" in message.content:
         card_data = scrape_wizzards(message.content)
         card_em = card_embed(card_data, message.content, BOT.user.avatar_url)

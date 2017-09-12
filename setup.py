@@ -1,4 +1,4 @@
-""" card-py-bot setup """
+"""card-py-bot setup"""
 
 from setuptools import setup, find_packages
 
@@ -10,13 +10,15 @@ def readme():
 
 setup(
     name="card-py-bot",
+    version="3.0.5", # new tag
+    description="A Discord Bot for embedding WOTC Magic card links "
+                "into Discord",
+    long_description=readme(),
     author="Nathan Klapstein",
     author_email="nklapste@ualberta.ca",
-    description="A Discord Bot for parsing WOTC Magic card links",
-    long_description=readme(),
-    version="3.0.5", # new tag
     url="https://github.com/nklapste/card-py-bot",
     download_url="https://github.com/nklapste/card-py-bot/archive/1.4.tar.gz",
+    license="MIT",
     classifiers=[
         "License :: MIT License",
         "Programming Language :: Python :: 3",
@@ -24,7 +26,6 @@ setup(
         "Programming Language :: Python :: 3.6",
     ],
     packages=find_packages(exclude=["tests"]),
-    license="MIT",
     package_data={
         "": ["README.md"],
         "card_py_bot": ["mana_config.txt", "MANA_ICONS/*.gif"],

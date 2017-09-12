@@ -1,3 +1,4 @@
+"""Emoji config string generator"""
 
 norm_id_list = [
     ":gm:",

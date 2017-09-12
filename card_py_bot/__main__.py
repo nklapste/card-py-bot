@@ -30,8 +30,6 @@ def main():
 
     # initialize logging
     handlers = list()
-    # handlers.append(logging.handlers.SysLogHandler(address="/dev/log"))
-
     if args.logdir is not None:
         handlers.append(
             logging.handlers.TimedRotatingFileHandler(
@@ -51,15 +49,15 @@ def main():
 
     logging.basicConfig(
         level=level,
-        format="%(asctime)s - %(levelname)s - %(message)s",
-        handlers=handlers
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        handlers=handlers,
     )
 
     # read the token file and extract the token
     token_file = open(args.token)
     token = str(token_file.read()).strip()
     token_file.close()
-    
+
     # run the bot
     BOT.run(token)
 
