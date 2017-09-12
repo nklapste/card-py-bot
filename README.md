@@ -14,11 +14,13 @@ is as follows:
 <pre>$ card-py-bot -t "your token string here"</pre>
 
 ### Requirements
-**Python3.6:** This bot utilizes python3.6 to utilize webscraping on WTC MTG's main card website. Python3.6 (and pip) can be downloaded for multiple OSes here:
+**Python3.6:** This bot utilizes python3.6 to utilize webscraping on WTC MTG's main card website. Python3.6 (and pip)
+can be downloaded for multiple OSes here:
 
 <pre>https://www.python.org/downloads/release/python-360/</pre>
 
 **Note:** Python3.6 should be installed within the C:\\Program Files directory.
 
 ### Disclaimer
-All card data, card images, and intellectual property owned by Wizzards of the West Coast is rightfully owned by them. This is simply a fan made creation to help instigate intense Commander Deck discussions.
+All card data, card images, and intellectual property owned by Wizzards of the West Coast is rightfully owned by
+them. This is simply a fan made creation to help instigate intense Commander Deck discussions.

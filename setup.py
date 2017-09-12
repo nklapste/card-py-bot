@@ -6,11 +6,12 @@ setup(
     author="Nathan Klapstein",
     author_email="nklapste@ualberta.ca",
 
-    version="3.0.4",
+    version="3.0.5",
 
     description="A Discord Bot for parsing magic card links",
     url="https://github.com/nklapste/card-py-bot",
     download_url="https://github.com/nklapste/card-py-bot/archive/1.4.tar.gz",
+    keywords="card py bot wotc magic discord embed",
     packages=["card_py_bot"],
     package_data={
         '': ['README.md'],

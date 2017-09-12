@@ -1,4 +1,4 @@
-""" Main .py file for running the card-py-bot """
+"""Module defining the card-py-bot"""
 import os
 import argparse
 
@@ -9,26 +9,26 @@ from card_py_bot.get_card import scrape_wizzards, card_data2string, card_data2em
 from card_py_bot.config_emoji import print_ids
 
 
-DESCRIPTION = '''Toasterstein's card-py-bot: An auto magic card link parsing
-and embedding Discord bot!'''
+DESCRIPTION = """Toasterstein's card-py-bot: An auto magic card link parsing
+and embedding Discord bot!"""
 
 BASEDIR = os.path.dirname(os.path.realpath(__file__))
 
-BOT = commands.Bot(command_prefix='?', description=DESCRIPTION)
+BOT = commands.Bot(command_prefix="?", description=DESCRIPTION)
 
 
 @BOT.event
 async def on_ready():
-    """ Startup callout/setup """
-    print('Logged in as')
+    """Startup callout/setup"""
+    print("Logged in as")
     print(BOT.user.id)
     print("Avatar url:", BOT.user.avatar_url)
-    print('------')
+    print("------")
 
 
 @BOT.event
 async def on_message(message):
-    """ Standard message handler with card and shush functions """
+    """Standard message handler with wotc magic card embed hook"""
     if "http://gatherer.wizards.com/Pages/Card" in message.content:
         print("likely inputted card url:", message.content)
         card_data = scrape_wizzards(message.content)
@@ -38,36 +38,33 @@ async def on_message(message):
 
 @BOT.command()
 async def print_setup():
-    """ Print the emoji config strings for setting up the mana icon config """
+    """Print the emoji config strings for setting up the mana icon config"""
     await BOT.say(print_ids())
 
 
 @BOT.command(pass_context=True)
 async def save_setup(ctx):
-    """ Save any user printed emoji config strings to the card_py_bot """
+    """Save user printed emoji config strings to the bot"""
     channel = ctx.message.channel
     async for message in BOT.logs_from(ctx.message.channel, limit=1):
-        config_f = open(BASEDIR+'\\mana_config.txt', 'w')
+        config_f = open(BASEDIR+"\\mana_config.txt", "w")
         emoji_ids = message.content.split()[1:]
         for emoji_id in emoji_ids:
-            emoji_id = emoji_id.lstrip('\\\\')
+            emoji_id = emoji_id.lstrip("\\\\")
             print("saving emoji_id:", emoji_id)
-            config_f.write(emoji_id+'\n')
+            config_f.write(emoji_id+"\n")
         config_f.close()
         print("all emoji_ids saved successfuly")
 
 def main():
-    parser = argparse.ArgumentParser(description='Discord magic card detail parser')
+    parser = argparse.ArgumentParser(description="Discord magic card detail parser")
 
-    parser.add_argument('-t', '--token', type=str,
-                        help='Discord Token for the bot!')
+    parser.add_argument("-t", "--token", type=str, required=True,
+                        help="Discord Token for the bot!")
 
     args = parser.parse_args()
 
-    if args.token is None:
-        raise Exception('Error: Discord Bot token required')
-    else:
-        BOT.run(args.token)
+    BOT.run(args.token)
 
 
 if __name__ == "__main__":
