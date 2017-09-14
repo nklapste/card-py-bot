@@ -8,41 +8,11 @@ from urllib.request import urlopen
 import discord
 from bs4 import BeautifulSoup
 
-from card_py_bot import WIZARDS_BASE_URL, BASEDIR
+from card_py_bot import WIZARDS_BASE_URL
+from card_py_bot.config_emoji import MANA_DICT
+
 
 __log__ = getLogger(__name__)
-
-
-def make_mana_dict() -> dict:
-    mana_dict = dict()
-    mana_colors_list = [
-        "Green", "Red", "Blue", "Black", "White",
-        "Phyrexian Blue", "Phyrexian Red", "Phyrexian Green",
-        "Phyrexian Black", "Phyrexian White",
-        "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-        "11", "12", "13", "14", "15", "16", "1000000",
-        "Black or Green", "Red or White", "Green or Blue",
-        "Blue or Red", "White or Black", "White or Blue",
-        "Blue or Black", "Black or Red", "Red or Green",
-        "Green or White", "Two or White", "Two or Green",
-        "Two or Black", "Two or Red", "Two or Blue",
-        "Tap", "Untap", "Energy"
-    ]
-
-    config_file = open(os.path.join(BASEDIR, "mana_config.txt"), "r")
-    counter = 0
-
-    for mana_emoji_id in config_file.readlines():
-        mana_dict[mana_colors_list[counter]] = mana_emoji_id
-        counter += 1
-
-    config_file.close()
-    __log__.debug("WOTC Magic mana to Discord emoji "
-                  "dictionary constructed: {}".format(mana_dict))
-    return mana_dict
-
-
-MANA_DICT = make_mana_dict()
 
 
 def parse_cardtextbox(cardtextbox_div) -> str:

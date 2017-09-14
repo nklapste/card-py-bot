@@ -6,7 +6,7 @@ import os
 from discord.ext import commands
 
 from card_py_bot import BASEDIR
-from card_py_bot.config_emoji import print_ids
+from card_py_bot.config_emoji import print_ids, save_mana_config
 from card_py_bot.get_card import scrape_wizzards, card_embed
 
 
@@ -53,11 +53,8 @@ class config():
                 [emoji_id.lstrip("\\\\")
                  for emoji_id in message.content.split()[1:]]
 
-            for emoji_id in emoji_ids:
-                config_f.write(emoji_id + "\n")
-            config_f.close()
-
-            __log__.info("Following emoji IDs saved: {}".format(emoji_ids))
+            # Save the emoji ids into the mana_config.json
+            save_mana_config(emoji_ids)
 
 
 BOT.add_cog(config(BOT))
