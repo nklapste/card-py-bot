@@ -5,7 +5,7 @@ import logging
 import logging.handlers
 import sys
 
-from card_py_bot.card_bot import BOT
+from card_py_bot.bot import BOT
 
 
 def main():
@@ -15,10 +15,15 @@ def main():
                                                  "links and embeds the "
                                                  "card's details into a "
                                                  "discord message")
-    parser.add_argument("-t", "--token", type=str, required=True,
-                        help="File containing a Discord token for the bot")
 
-    group = parser.add_argument_group(title="LOGGING")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-t", "--token", type=str,
+                        help="String of the Discord token for the bot")
+    group.add_argument("-tf", "--token-file", type=str, dest="token_file",
+                        help="Path to file containing a Discord token for "
+                             "the bot")
+
+    group = parser.add_argument_group(title="Logging config")
     group.add_argument("-v", "--verbose", action="store_true",
                        help="Enable verbose logging")
     group.add_argument("-f", "--log-dir", dest="logdir",
@@ -54,9 +59,12 @@ def main():
     )
 
     # read the token file and extract the token
-    token_file = open(args.token)
-    token = str(token_file.read()).strip()
-    token_file.close()
+    if args.token_file is not None:
+        token_file = open(args.token_file, "r")
+        token = str(token_file.read()).strip()
+        token_file.close()
+    elif args.token is not None:
+        token = args.token
 
     # run the bot
     BOT.run(token)

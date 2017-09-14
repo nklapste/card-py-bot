@@ -1,16 +1,14 @@
 """Module for parsing the WOTC website for data on magic cards"""
 
-from logging import getLogger
-import os
 import re
+from logging import getLogger
 from urllib.request import urlopen
 
 import discord
 from bs4 import BeautifulSoup
 
+import card_py_bot.config
 from card_py_bot import WIZARDS_BASE_URL
-from card_py_bot.config_emoji import MANA_DICT
-
 
 __log__ = getLogger(__name__)
 
@@ -21,7 +19,7 @@ def parse_cardtextbox(cardtextbox_div) -> str:
         content_string_ = ""
         try:
             icon_content = content["alt"]
-            icon_string = MANA_DICT[icon_content].strip()
+            icon_string = card_py_bot.config.MANA_DICT[icon_content].strip()
             return " {} ".format(icon_string)
         except (TypeError, KeyError):
             pass
@@ -52,9 +50,7 @@ def parse_mana(mana_div) -> str:
     mana_string = ""
     for mana_content in mana_div.children:
         try:
-            print(MANA_DICT)
-            print(mana_content["alt"])
-            mana_string += MANA_DICT[mana_content["alt"]].strip() + " "
+            mana_string += card_py_bot.config.MANA_DICT[mana_content["alt"]].strip() + " "
         except TypeError:
             pass
     return mana_string
@@ -78,16 +74,17 @@ def parse_artist(artist_div) -> str:
     return artist
 
 
-# TODO
-def parse_expansion(expansion_div):
+def parse_expansion(expansion_div) -> str:
     """Parse the expansion name and set image handler"""
-    pass
+    second_a = expansion_div.findAll("a")[1]
+    return second_a.get_text()
 
 
-def scrape_wizzards(url: str) -> dict:
+def scrape_card(url: str) -> dict:
     """Scrape a WOTC magic card webpage and extract the cards details for
     embedding into a Discord message"""
     __log__.debug("Scraping WOTC Magic card at: {}".format(url))
+
     html = urlopen(url)
     soup = BeautifulSoup(html, "html5lib")
 
@@ -99,12 +96,12 @@ def scrape_wizzards(url: str) -> dict:
         "Types": parse_base_value,
         "Card Text": parse_cardtextbox,
         "P/T": parse_base_value,
-        "Expansion": "skip",
+        "Expansion": parse_expansion,
         "Rarity": parse_rarity,
         "All Sets": "skip",
         "Card Number": parse_base_value,
         "Artist": parse_artist,
-        "Flavor Text": parse_cardtextbox
+        "Flavor Text": parse_cardtextbox,
     }
 
     card_data = dict()
@@ -121,41 +118,21 @@ def scrape_wizzards(url: str) -> dict:
     return card_data
 
 
-def card_string(card_data: dict) -> str:
-    """Format scraped card data into a Discord message"""
-
-    element_list = ["Card Name", "Mana Cost", "Types", "Rarity", "Card Text",
-                    "Flavor Text", "P/T", "Artist", "image_url"]
-    out_string = ""
-    for element in element_list:
-        if element in card_data:
-            if element == "image_url":
-                out_string += card_data[element]
-            elif element == "Flavor Text":
-                out_string +=\
-                    "**{}:** *{}*\n".format(element, card_data[element])
-            else:
-                out_string +=\
-                    "**{}:** {}\n".format(element, card_data[element])
-
-    return out_string
-
-
 def card_embed(card_data: dict, in_url: str, avatar_url: str):
     """Format scraped card data into a Discord embed"""
 
     element_list = ["Mana Cost", "Types", "Rarity", "Card Text",
-                    "Flavor Text", "P/T", "Artist", "image_url"]
+                    "Flavor Text", "P/T", "Expansion", "Artist", "image_url"]
 
     try:
         card_name = card_data["Card Name"]
         embed_title = "**Card Name**\n[{}]({})".format(card_name, in_url)
     except Exception:
-        embed_title = "Error: giving raw url:" + in_url
+        embed_title = "Error: giving raw url: {}".format(in_url)
 
     em = discord.Embed(description=embed_title, colour=0xDEADBF)
     em.set_footer(text="card-py-bot by Nathan Klapstein", icon_url=avatar_url)
-    # em.set_thumbnail(url=avatar_url)
+
     for element in element_list:
         if element in card_data:
             if element == "image_url":

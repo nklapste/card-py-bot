@@ -10,7 +10,7 @@ def readme():
 
 setup(
     name="card-py-bot",
-    version="3.0.5", # new tag
+    version="3.1.0", # new tag
     description="A Discord Bot for embedding WOTC Magic card links "
                 "into Discord",
     long_description=readme(),
@@ -28,7 +28,7 @@ setup(
     packages=find_packages(exclude=["tests"]),
     package_data={
         "": ["README.md"],
-        "card_py_bot": ["mana_config.txt", "MANA_ICONS/*.gif"],
+        "card_py_bot": ["emoji_config.json", "MANA_ICONS/*.gif"],
     },
     install_requires=[
         "beautifulsoup4",

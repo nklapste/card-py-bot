@@ -15,7 +15,7 @@ Modules:
     get_card
 
 Config:
-    mana_config.txt
+    emoji_config.json
 """
 
 import os
@@ -23,5 +23,3 @@ import os
 BASEDIR = os.path.dirname(os.path.realpath(__file__))
 
 WIZARDS_BASE_URL = "http://gatherer.wizards.com/"
-
-MANA_CONFIG_PATH = os.path.join(BASEDIR, "mana_config.json")
