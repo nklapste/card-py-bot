@@ -25,7 +25,7 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
     ],
-    packages=find_packages(exclude=["tests"]),
+    packages=find_packages(exclude=["test"]),
     package_data={
         "": ["README.md"],
         "card_py_bot": ["emoji_config.json", "MANA_ICONS/*.gif"],
@@ -35,6 +35,7 @@ setup(
         "html5lib",
         "discord.py"
     ],
+    tests_require=["pytest"],
     entry_points={
         "console_scripts": ["card-py-bot = card_py_bot.__main__:main"],
     },
