@@ -23,7 +23,7 @@ async def on_ready():
 @BOT.event
 async def on_message(message):
     """Standard message handler with card and shush functions"""
-    if "http://gatherer.wizards.com/Pages/Card" in message.content:
+    if message.content.startswith("http://gatherer.wizards.com/Pages/Card"):
         card_data = scrape_card(message.content)
         card_em = card_embed(card_data, message.content, BOT.user.avatar_url)
         await BOT.send_message(message.channel, embed=card_em)
