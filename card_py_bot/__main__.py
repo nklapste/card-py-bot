@@ -13,19 +13,19 @@ def main():
                                                  "that web scrapes Magic card "
                                                  "links and embeds the "
                                                  "card's details into a "
-                                                 "discord message")
+                                                 "Discord message")
 
     parser.add_argument("-c", "--emoji-config-path", type=str,
                         default=card_py_bot.config.EMOJI_CONFIG_PATH,
                         dest="emoji_config_path",
                         help="Path to the card-py-bot emoji_config.json to be "
-                             "loaded/generated (default: %(default)s)")
+                             "loaded/generated from (default: %(default)s)")
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-t", "--token", type=str,
                         help="String of the Discord token for the bot")
     group.add_argument("-tf", "--token-file", type=str, dest="token_file",
-                        help="Path to file containing a Discord token for "
+                        help="Path to file containing the Discord token for "
                              "the bot")
 
     group = parser.add_argument_group(title="Logging config")
