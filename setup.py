@@ -28,7 +28,7 @@ setup(
     packages=find_packages(exclude=["test"]),
     package_data={
         "": ["README.md"],
-        "card_py_bot": ["emoji_config.json", "MANA_ICONS/*.gif"],
+        "card_py_bot": ["MANA_ICONS/*.gif"],
     },
     install_requires=[
         "beautifulsoup4",
