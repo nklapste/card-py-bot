@@ -30,7 +30,6 @@ async def on_message(message):
     await BOT.process_commands(message)
 
 
-
 class config():
     """Config commands for the card-py-bot"""
     def __init__(self, bot):

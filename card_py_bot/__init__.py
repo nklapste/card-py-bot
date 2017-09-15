@@ -10,9 +10,9 @@ Scripts:
     __main__
 
 Modules:
-    card_bot
-    config_emoji
-    get_card
+    bot
+    config
+    scrape
 
 Config:
     emoji_config.json
