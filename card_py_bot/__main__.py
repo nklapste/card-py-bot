@@ -1,12 +1,11 @@
 """Main script entry point for the card-py-bot"""
-
 import argparse
 import logging
 import logging.handlers
 import sys
 
 from card_py_bot.bot import BOT
-
+import card_py_bot.config
 
 def main():
     """Startup script for the card-py-bot"""
@@ -15,6 +14,12 @@ def main():
                                                  "links and embeds the "
                                                  "card's details into a "
                                                  "discord message")
+
+    parser.add_argument("-c", "--emoji-config-path", type=str,
+                        default=card_py_bot.config.EMOJI_CONFIG_PATH,
+                        dest="emoji_config_path",
+                        help="Path to the card-py-bot emoji_config.json to be "
+                             "loaded/generated (default: %(default)s)")
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-t", "--token", type=str,
@@ -27,11 +32,14 @@ def main():
     group.add_argument("-v", "--verbose", action="store_true",
                        help="Enable verbose logging")
     group.add_argument("-f", "--log-dir", dest="logdir",
-                       help="Enable time rotating file logging, logging to "
+                       help="Enable time rotating file logging at "
                             "the path specified")
     group.add_argument("-d", "--debug", action="store_true",
-                       help="Set the logging level to DEBUG")
+                       help="Enable DEBUG logging level")
     args = parser.parse_args()
+
+    # set the emoji config path
+    card_py_bot.config.EMOJI_CONFIG_PATH = args.emoji_config_path
 
     # initialize logging
     handlers = list()
