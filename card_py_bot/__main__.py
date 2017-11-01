@@ -7,6 +7,7 @@ import sys
 from card_py_bot.bot import BOT
 import card_py_bot.config
 
+
 def main():
     """Startup script for the card-py-bot"""
     parser = argparse.ArgumentParser(description="card-py-bot: a Discord bot "

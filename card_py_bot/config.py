@@ -41,6 +41,7 @@ def get_emoji_config_string() -> str:
 
     return config_string
 
+
 EMOJI_CONFIG_STRING = get_emoji_config_string()
 
 
@@ -81,6 +82,7 @@ def load_mana_dict() -> dict:
                   "dictionary constructed: {}".format(mana_dict))
     return mana_dict
 
+
 MANA_DICT = load_mana_dict()
 
 
@@ -103,14 +105,14 @@ def save_emoji_config(raw_emoji_ids):
 
         short_emoji_id = parse_raw_emoji_id(raw_emoji_id)
 
-        if short_emoji_id not in MANA_ID_DICT:
+        if short_emoji_id in MANA_ID_DICT:
+            emoji_config[short_emoji_id] = {
+                    "web_id": MANA_ID_DICT[short_emoji_id],
+                    "discord_raw_id": raw_emoji_id
+                }
+        else:
             raise KeyError("Short Discord emoji id is unknown: "
                            "{}".format(short_emoji_id))
-
-        emoji_config[short_emoji_id]={
-                "web_id":MANA_ID_DICT[short_emoji_id],
-                "discord_raw_id": raw_emoji_id
-            }
 
     with open(EMOJI_CONFIG_PATH, "w") as file:
         json.dump(emoji_config, file, indent=4)

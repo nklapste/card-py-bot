@@ -30,7 +30,7 @@ async def on_message(message):
     await BOT.process_commands(message)
 
 
-class config():
+class Config():
     """Config commands for the card-py-bot"""
     def __init__(self, bot):
         self.bot = bot
@@ -52,4 +52,4 @@ class config():
             save_emoji_config(emoji_ids)
 
 
-BOT.add_cog(config(BOT))
+BOT.add_cog(Config(BOT))

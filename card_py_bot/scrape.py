@@ -13,6 +13,19 @@ from card_py_bot import WIZARDS_BASE_URL
 __log__ = getLogger(__name__)
 
 
+CARD_ELEMENT_LIST = [
+    "Mana Cost",
+    "Types",
+    "Rarity",
+    "Card Text",
+    "Flavor Text",
+    "P/T",
+    "Expansion",
+    "Artist",
+    "image_url"
+]
+
+
 def parse_cardtextbox(cardtextbox_div) -> str:
     """Parse an arbitrary text box and also extract elements like mana"""
     def extract_content(content):
@@ -80,6 +93,23 @@ def parse_expansion(expansion_div) -> str:
     return second_a.get_text()
 
 
+LABEL_DICT = {
+    "Community Rating": "skip",
+    "Card Name": parse_base_value,
+    "Mana Cost": parse_mana,
+    "Converted Mana Cost": parse_base_value,
+    "Types": parse_base_value,
+    "Card Text": parse_cardtextbox,
+    "P/T": parse_base_value,
+    "Expansion": parse_expansion,
+    "Rarity": parse_rarity,
+    "All Sets": "skip",
+    "Card Number": parse_base_value,
+    "Artist": parse_artist,
+    "Flavor Text": parse_cardtextbox,
+}
+
+
 def scrape_card(url: str) -> dict:
     """Scrape a WOTC magic card webpage and extract the cards details for
     embedding into a Discord message"""
@@ -88,30 +118,14 @@ def scrape_card(url: str) -> dict:
     html = urlopen(url)
     soup = BeautifulSoup(html, "html5lib")
 
-    label_dict = {
-        "Community Rating": "skip",
-        "Card Name": parse_base_value,
-        "Mana Cost": parse_mana,
-        "Converted Mana Cost": parse_base_value,
-        "Types": parse_base_value,
-        "Card Text": parse_cardtextbox,
-        "P/T": parse_base_value,
-        "Expansion": parse_expansion,
-        "Rarity": parse_rarity,
-        "All Sets": "skip",
-        "Card Number": parse_base_value,
-        "Artist": parse_artist,
-        "Flavor Text": parse_cardtextbox,
-    }
-
     card_data = dict()
     label_list = soup.find_all("div", class_="label")
     for label_div in label_list:
         for string in label_div.stripped_strings:
             label_name = string.strip(":")
-            if label_name in label_dict and label_dict[label_name] != "skip":
+            if label_name in LABEL_DICT and LABEL_DICT[label_name] != "skip":
                 card_data[label_name] = \
-                    label_dict[label_name](label_div.find_next_sibling("div"))
+                    LABEL_DICT[label_name](label_div.find_next_sibling("div"))
 
     card_image_div = soup.find("div", class_="cardImage")
     card_data["image_url"] = WIZARDS_BASE_URL + parse_image(card_image_div)
@@ -120,9 +134,6 @@ def scrape_card(url: str) -> dict:
 
 def card_embed(card_data: dict, in_url: str, avatar_url: str):
     """Format scraped card data into a Discord embed"""
-
-    element_list = ["Mana Cost", "Types", "Rarity", "Card Text",
-                    "Flavor Text", "P/T", "Expansion", "Artist", "image_url"]
 
     try:
         card_name = card_data["Card Name"]
@@ -133,7 +144,7 @@ def card_embed(card_data: dict, in_url: str, avatar_url: str):
     em = discord.Embed(description=embed_title, colour=0xDEADBF)
     em.set_footer(text="card-py-bot by Nathan Klapstein", icon_url=avatar_url)
 
-    for element in element_list:
+    for element in CARD_ELEMENT_LIST:
         if element in card_data:
             if element == "image_url":
                 em.set_image(url=card_data[element])
