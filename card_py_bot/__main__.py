@@ -24,10 +24,10 @@ def main():
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-t", "--token", type=str,
-                        help="String of the Discord token for the bot")
+                       help="String of the Discord token for the bot")
     group.add_argument("-tf", "--token-file", type=str, dest="token_file",
-                        help="Path to file containing the Discord token for "
-                             "the bot")
+                       help="Path to file containing the Discord token for "
+                            "the bot")
 
     group = parser.add_argument_group(title="Logging config")
     group.add_argument("-v", "--verbose", action="store_true",
