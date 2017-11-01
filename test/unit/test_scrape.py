@@ -2,7 +2,7 @@
 
 import pytest
 
-from card_py_bot.scrape import scrape_card
+from card_py_bot.scrape import scrape_card, create_card_embed, embed_card
 
 
 @pytest.mark.parametrize("card_url,expected_card_data", [
@@ -47,3 +47,23 @@ def test_scrape_card(card_url, expected_card_data):
     for card_data_element in expected_card_data:
         assert card_data[card_data_element] == \
                expected_card_data[card_data_element]
+
+
+@pytest.mark.parametrize("card_url", [
+            "http://gatherer.wizards.com/Pages/Card/Details."
+            "aspx?multiverseid=74626",
+            "http://gatherer.wizards.com/Pages/Card/Details."
+            "aspx?multiverseid=13821",
+])
+def test_create_card_embed(card_url):
+    create_card_embed(scrape_card(card_url), card_url, None)
+
+
+@pytest.mark.parametrize("card_url", [
+            "http://gatherer.wizards.com/Pages/Card/Details."
+            "aspx?multiverseid=74626",
+            "http://gatherer.wizards.com/Pages/Card/Details."
+            "aspx?multiverseid=13821",
+])
+def test_embed_card(card_url):
+    embed_card(card_url)

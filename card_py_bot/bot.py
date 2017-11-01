@@ -5,7 +5,7 @@ from logging import getLogger
 from discord.ext import commands
 
 from card_py_bot.config import save_emoji_config, EMOJI_CONFIG_STRING
-from card_py_bot.scrape import scrape_card, card_embed
+from card_py_bot.scrape import embed_card
 
 DESCRIPTION = """card-py-bot: An WOTC Magic card link embedding Discord bot!"""
 
@@ -24,9 +24,10 @@ async def on_ready():
 async def on_message(message):
     """Standard message handler with card and shush functions"""
     if message.content.startswith("http://gatherer.wizards.com/Pages/Card"):
-        card_data = scrape_card(message.content)
-        card_em = card_embed(card_data, message.content, BOT.user.avatar_url)
-        await BOT.send_message(message.channel, embed=card_em)
+        await BOT.send_message(
+            message.channel,
+            embed=embed_card(message.content)
+        )
     await BOT.process_commands(message)
 
 

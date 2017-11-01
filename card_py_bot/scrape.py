@@ -132,7 +132,7 @@ def scrape_card(url: str) -> dict:
     return card_data
 
 
-def card_embed(card_data: dict, in_url: str, avatar_url: str):
+def create_card_embed(card_data: dict, in_url: str, avatar_url: str = None):
     """Format scraped card data into a Discord embed"""
 
     try:
@@ -161,3 +161,8 @@ def card_embed(card_data: dict, in_url: str, avatar_url: str):
                 )
 
     return em
+
+
+def embed_card(url: str, avatar_url: str = None):
+    """From a Magic card url create a Discord embed"""
+    return create_card_embed(scrape_card(url), url, avatar_url)
