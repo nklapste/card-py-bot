@@ -4,12 +4,14 @@ import pytest
 
 from card_py_bot.scrape import scrape_card, create_card_embed, embed_card
 
-
+CARD_URL_1 = "http://gatherer.wizards.com/Pages/Card/Details.aspx" \
+             "?multiverseid=74626 "
+CARD_URL_2 = "http://gatherer.wizards.com/Pages/Card/Details.aspx" \
+             "?multiverseid=13821 "
 @pytest.mark.parametrize("card_url,expected_card_data", [
 
     (
-            "http://gatherer.wizards.com/Pages/Card/Details."
-            "aspx?multiverseid=74626",
+            CARD_URL_1,
             {
                 "P/T": "5 / 4",
                 "Types": "Legendary Creature  — Rat Ninja",
@@ -24,8 +26,7 @@ from card_py_bot.scrape import scrape_card, create_card_embed, embed_card
             }
     ),
     (
-            "http://gatherer.wizards.com/Pages/Card/Details."
-            "aspx?multiverseid=13821",
+            CARD_URL_2,
             {
                 "Artist": "Jeff Laubenstein", "Card Number": "92",
                 "Converted Mana Cost": "1",
@@ -50,20 +51,16 @@ def test_scrape_card(card_url, expected_card_data):
 
 
 @pytest.mark.parametrize("card_url", [
-            "http://gatherer.wizards.com/Pages/Card/Details."
-            "aspx?multiverseid=74626",
-            "http://gatherer.wizards.com/Pages/Card/Details."
-            "aspx?multiverseid=13821",
+            CARD_URL_1,
+            CARD_URL_2,
 ])
 def test_create_card_embed(card_url):
     create_card_embed(scrape_card(card_url), card_url, None)
 
 
 @pytest.mark.parametrize("card_url", [
-            "http://gatherer.wizards.com/Pages/Card/Details."
-            "aspx?multiverseid=74626",
-            "http://gatherer.wizards.com/Pages/Card/Details."
-            "aspx?multiverseid=13821",
+            CARD_URL_1,
+            CARD_URL_2,
 ])
 def test_embed_card(card_url):
     embed_card(card_url)
