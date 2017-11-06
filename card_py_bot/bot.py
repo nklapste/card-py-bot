@@ -37,12 +37,12 @@ class Config():
         self.bot = bot
 
     @commands.command()
-    @commands.has_role("Moderators")
+    @commands.has_permissions(administrator=True)
     async def print_setup(self):
         """Print the emoji config strings for setting up the mana icon config"""
         await self.bot.say(EMOJI_CONFIG_STRING)
 
-    @commands.command(pass_context=True)
+    @commands.command(administrator=True)
     @commands.has_role("Moderators")
     async def save_setup(self, ctx):
         """Save any user printed emoji config strings to the card_py_bot"""
