@@ -100,3 +100,4 @@ ENV/
 
 # pycharm files
 .idea/
+/card_py_bot/emoji_config.json
