@@ -97,6 +97,7 @@ def load_mana_dict() -> dict:
             emoji_config = json.load(file)
     except FileNotFoundError:
             emoji_config = create_config_json()
+
     mana_dict = dict()
     for short_emoji_id in emoji_config:
         emoji = emoji_config[short_emoji_id]

@@ -134,7 +134,6 @@ def scrape_card(url: str) -> dict:
 
 def create_card_embed(card_data: dict, in_url: str, avatar_url: str = None):
     """Format scraped card data into a Discord embed"""
-
     try:
         card_name = card_data["Card Name"]
         embed_title = "**Card Name**\n[{}]({})".format(card_name, in_url)

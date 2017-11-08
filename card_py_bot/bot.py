@@ -42,14 +42,12 @@ class Config():
         """Print the emoji config strings for setting up the mana icon config"""
         await self.bot.say(EMOJI_CONFIG_STRING)
 
-    @commands.command(administrator=True)
-    @commands.has_role("Moderators")
-    async def save_setup(self, ctx):
+    @commands.command(pass_context=True)
+    @commands.has_permissions(administrator=True)
+    async def save_setup(self, ctx): #TODO ENSURE WORKING
         """Save any user printed emoji config strings to the card_py_bot"""
         async for message in self.bot.logs_from(ctx.message.channel, limit=1):
-            emoji_ids = \
-                [emoji_id.lstrip("\\\\")
-                 for emoji_id in message.content.split()[1:]]
+            emoji_ids = [emoji_id.lstrip("\\\\") for emoji_id in message.content.split()[1:]]
 
             # Save the emoji ids into the emoji_config.json
             save_emoji_config(emoji_ids)

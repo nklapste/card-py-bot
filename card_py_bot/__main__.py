@@ -2,10 +2,13 @@
 import argparse
 import sys
 
+import logging
+import logging.handlers
+
 from card_py_bot.bot import BOT
 import card_py_bot.config
 
-from card_py_bot.utils.logging import add_logging_config, config_logging
+
 def main():
     """Startup script for the card-py-bot"""
     parser = argparse.ArgumentParser(description="card-py-bot: a Discord bot "
@@ -27,9 +30,42 @@ def main():
                        help="Path to file containing the Discord token for "
                             "the bot")
 
-    add_logging_config(parser)
+    group = parser.add_argument_group(title="Logging config")
+    group.add_argument("-v", "--verbose", action="store_true",
+                       help="Enable verbose logging")
+    group.add_argument("-f", "--log-dir", dest="logdir",
+                       help="Enable time rotating file logging at "
+                            "the path specified")
+    group.add_argument("-d", "--debug", action="store_true",
+                       help="Enable DEBUG logging level")
+
     args = parser.parse_args()
-    config_logging(args)
+
+    # initialize logging
+    handlers = list()
+    if args.logdir is not None:
+        handlers.append(
+            logging.handlers.TimedRotatingFileHandler(
+                args.logdir,
+                when="D",
+                interval=1,
+                backupCount=45
+            )
+        )
+
+    if args.verbose:
+        handlers.append(logging.StreamHandler())
+
+    if args.debug:
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        handlers=handlers,
+    )
 
     # set the emoji config path
     card_py_bot.config.EMOJI_CONFIG_PATH = args.emoji_config_path
@@ -41,6 +77,7 @@ def main():
         token_file.close()
     elif args.token is not None:
         token = args.token
+
     # run the bot
     BOT.run(token)
 

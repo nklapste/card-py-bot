@@ -33,7 +33,7 @@ setup(
     install_requires=[
         "beautifulsoup4",
         "html5lib",
-        "discord.py"
+        "discord.py",
     ],
     tests_require=["pytest"],
     entry_points={
