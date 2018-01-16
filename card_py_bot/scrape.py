@@ -89,8 +89,9 @@ def parse_artist(artist_div) -> str:
 
 def parse_expansion(expansion_div) -> str:
     """Parse the expansion name and set image handler"""
-    second_a = expansion_div.findAll("a")[1]
-    return second_a.get_text()
+    second_a = expansion_div.findAll("a")[1].text
+    return second_a
+    # return WIZARDS_BASE_URL + expansion_div.find("img")["src"].lstrip("../../")
 
 
 LABEL_DICT = {
@@ -132,7 +133,7 @@ def scrape_card(url: str) -> dict:
     return card_data
 
 
-def create_card_embed(card_data: dict, in_url: str, avatar_url: str = None):
+def create_card_embed(card_data: dict, in_url: str):
     """Format scraped card data into a Discord embed"""
     try:
         card_name = card_data["Card Name"]
@@ -141,7 +142,6 @@ def create_card_embed(card_data: dict, in_url: str, avatar_url: str = None):
         embed_title = "Error: giving raw url: {}".format(in_url)
 
     em = discord.Embed(description=embed_title, colour=0xDEADBF)
-    em.set_footer(text="card-py-bot by Nathan Klapstein", icon_url=avatar_url)
 
     for element in CARD_ELEMENT_LIST:
         if element in card_data:
@@ -158,10 +158,9 @@ def create_card_embed(card_data: dict, in_url: str, avatar_url: str = None):
                     value=card_data[element],
                     inline=False
                 )
-
     return em
 
 
-def embed_card(url: str, avatar_url: str = None):
+def embed_card(url: str):
     """From a Magic card url create a Discord embed"""
-    return create_card_embed(scrape_card(url), url, avatar_url)
+    return create_card_embed(scrape_card(url), url)
