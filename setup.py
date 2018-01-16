@@ -10,7 +10,7 @@ def readme():
 
 setup(
     name="card-py-bot",
-    version="3.1.1", # new tag
+    version="3.1.1",
     description="A Discord Bot for embedding WOTC Magic card links "
                 "into Discord",
     long_description=readme(),
@@ -32,7 +32,7 @@ setup(
     },
     install_requires=[
         "beautifulsoup4",
-        "html5lib",
+        "lxml",
         "discord.py",
     ],
     tests_require=["pytest"],

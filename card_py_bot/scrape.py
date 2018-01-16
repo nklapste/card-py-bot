@@ -4,6 +4,7 @@ import re
 from logging import getLogger
 from urllib.request import urlopen
 
+import lxml
 import discord
 from bs4 import BeautifulSoup
 
@@ -116,8 +117,7 @@ def scrape_card(url: str) -> dict:
     embedding into a Discord message"""
     __log__.debug("Scraping WOTC Magic card at: {}".format(url))
 
-    html = urlopen(url)
-    soup = BeautifulSoup(html, "html5lib")
+    soup = BeautifulSoup(urlopen(url), "lxml")
 
     card_data = dict()
     label_list = soup.find_all("div", class_="label")
