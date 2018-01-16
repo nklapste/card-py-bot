@@ -133,13 +133,13 @@ def scrape_card(url: str) -> dict:
     return card_data
 
 
-def create_card_embed(card_data: dict, in_url: str):
+def create_card_embed(card_data: dict, card_url: str) -> discord.Embed:
     """Format scraped card data into a Discord embed"""
     try:
         card_name = card_data["Card Name"]
-        embed_title = "**Card Name**\n[{}]({})".format(card_name, in_url)
+        embed_title = "**Card Name**\n[{}]({})".format(card_name, card_url)
     except Exception:
-        embed_title = "Error: giving raw url: {}".format(in_url)
+        embed_title = "Error: giving raw url: {}".format(card_url)
 
     em = discord.Embed(description=embed_title, colour=0xDEADBF)
 
@@ -161,6 +161,6 @@ def create_card_embed(card_data: dict, in_url: str):
     return em
 
 
-def embed_card(url: str):
+def embed_card(url: str) -> discord.Embed:
     """From a Magic card url create a Discord embed"""
     return create_card_embed(scrape_card(url), url)

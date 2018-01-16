@@ -115,7 +115,7 @@ def load_mana_dict() -> dict:
 MANA_DICT = load_mana_dict()
 
 
-def parse_raw_emoji_id(raw_emoji_id) -> str:
+def parse_raw_emoji_id(raw_emoji_id: str) -> str:
     """Parse a raw emoji id to short emoji id"""
     m = re.search(":[A-Za-z0-9]*:", raw_emoji_id)
     return m.group(0)

@@ -8,8 +8,9 @@ CARD_URL_1 = "http://gatherer.wizards.com/Pages/Card/Details.aspx" \
              "?multiverseid=74626 "
 CARD_URL_2 = "http://gatherer.wizards.com/Pages/Card/Details.aspx" \
              "?multiverseid=13821 "
-@pytest.mark.parametrize("card_url,expected_card_data", [
 
+
+@pytest.mark.parametrize("card_url,expected_card_data", [
     (
             CARD_URL_1,
             {
@@ -55,7 +56,7 @@ def test_scrape_card(card_url, expected_card_data):
             CARD_URL_2,
 ])
 def test_create_card_embed(card_url):
-    create_card_embed(scrape_card(card_url), card_url, None)
+    create_card_embed(scrape_card(card_url), card_url)
 
 
 @pytest.mark.parametrize("card_url", [

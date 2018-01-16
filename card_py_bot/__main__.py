@@ -55,7 +55,6 @@ def main():
 
     if args.verbose:
         handlers.append(logging.StreamHandler())
-
     if args.debug:
         level = logging.DEBUG
     else:

@@ -44,7 +44,7 @@ class Config():
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
-    async def save_setup(self, ctx): #TODO ENSURE WORKING
+    async def save_setup(self, ctx):
         """Save any user printed emoji config strings to the card_py_bot"""
         async for message in self.bot.logs_from(ctx.message.channel, limit=1):
             emoji_ids = [emoji_id.lstrip("\\\\") for emoji_id in message.content.split()[1:]]
