@@ -102,3 +102,4 @@ ENV/
 .idea/
 /card_py_bot/emoji_config.json
 /card_py_bot/token.txt
+token
