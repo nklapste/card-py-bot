@@ -26,6 +26,7 @@ setup(
         "Programming Language :: Python :: 3.6",
     ],
     packages=find_packages(exclude=["test"]),
+    include_package_data=True,
     package_data={
         "": ["README.md"],
         "card_py_bot": ["MANA_ICONS/*.gif"],
