@@ -1,28 +1,42 @@
-from setuptools import setup
+"""card-py-bot setup"""
+
+from setuptools import setup, find_packages
+
+
+def readme():
+    with open("README.md") as f:
+        return f.read()
 
 
 setup(
     name="card-py-bot",
+    version="3.1.1",
+    description="A Discord Bot for embedding WOTC Magic card links "
+                "into Discord",
+    long_description=readme(),
     author="Nathan Klapstein",
     author_email="nklapste@ualberta.ca",
-
-    version="3.0.5",
-
-    description="A Discord Bot for parsing magic card links",
     url="https://github.com/nklapste/card-py-bot",
     download_url="https://github.com/nklapste/card-py-bot/archive/1.4.tar.gz",
-    keywords="card py bot wotc magic discord embed",
-    packages=["card_py_bot"],
+    license="MIT",
+    classifiers=[
+        "License :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+    ],
+    packages=find_packages(exclude=["test"]),
     package_data={
-        '': ['README.md'],
-        'card_py_bot': ['mana_config.txt', 'MANA_ICONS/*.gif'],
+        "": ["README.md"],
+        "card_py_bot": ["MANA_ICONS/*.gif"],
     },
     install_requires=[
-        'beautifulsoup4',
-        'html5lib',
-        'discord.py',
+        "beautifulsoup4",
+        "lxml",
+        "discord.py",
     ],
+    tests_require=["pytest"],
     entry_points={
-        'console_scripts': ['card-py-bot = card_py_bot.card_bot:main'],
+        "console_scripts": ["card-py-bot = card_py_bot.__main__:main"],
     },
 )
