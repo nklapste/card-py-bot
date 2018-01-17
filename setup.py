@@ -17,7 +17,7 @@ setup(
     author="Nathan Klapstein",
     author_email="nklapste@ualberta.ca",
     url="https://github.com/nklapste/card-py-bot",
-    download_url="https://github.com/nklapste/card-py-bot/archive/3.1.1.tar.gz",
+    download_url="https://github.com/nklapste/card-py-bot/archive/3.1.2.tar.gz",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
