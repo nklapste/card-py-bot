@@ -1,6 +1,7 @@
 """card-py-bot Discord bot api"""
 
 from logging import getLogger
+import re
 
 from discord.ext import commands
 
@@ -23,7 +24,8 @@ async def on_ready():
 @BOT.event
 async def on_message(message):
     """Standard message handler with card and shush functions"""
-    if message.content.startswith("http://gatherer.wizards.com/Pages/Card"):
+
+    if re.match("^http://gatherer\.wizards\.com/Pages/Card/Details\.aspx\?multiverseid=[0-9]{1,25}\Z", message.content.strip()):
         await BOT.send_message(
             message.channel,
             embed=embed_card(message.content)
