@@ -20,7 +20,7 @@ Requirements
 ~~~~~~~~~~~~
 
 **Python3.6:** This bot utilizes python3.6 to utilize webscraping on
-WOTC MTG’s main card website. Python3.6 (and pip) can be downloaded for
+WOTC MTG's main card website. Python3.6 (and pip) can be downloaded for
 multiple OSes here:
 
 ``https://www.python.org/downloads/release/python-360/``
