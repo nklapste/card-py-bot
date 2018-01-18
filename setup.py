@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 def readme():
-    with open("README.md") as f:
+    with open("README.rst") as f:
         return f.read()
 
 
@@ -28,7 +28,7 @@ setup(
     packages=find_packages(exclude=["test"]),
     include_package_data=True,
     package_data={
-        "": ["README.md"],
+        "": ["README.rst"],
         "card_py_bot": ["MANA_ICONS/*.gif"],
     },
     install_requires=[
