@@ -10,14 +10,14 @@ def readme():
 
 setup(
     name="card-py-bot",
-    version="3.1.3",
+    version="3.1.4",
     description="A Discord Bot for embedding WOTC Magic card links "
                 "into Discord",
     long_description=readme(),
     author="Nathan Klapstein",
     author_email="nklapste@ualberta.ca",
     url="https://github.com/nklapste/card-py-bot",
-    download_url="https://github.com/nklapste/card-py-bot/archive/3.1.3.tar.gz",
+    download_url="https://github.com/nklapste/card-py-bot/archive/3.1.4.tar.gz",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
