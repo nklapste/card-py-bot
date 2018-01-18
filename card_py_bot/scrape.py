@@ -18,10 +18,10 @@ CARD_ELEMENT_LIST = [
     "Mana Cost",
     "Types",
     "Rarity",
+    "Expansion",
     "Card Text",
     "Flavor Text",
     "P/T",
-    "Expansion",
     "Artist",
     "image_url"
 ]
@@ -89,10 +89,9 @@ def parse_artist(artist_div) -> str:
 
 
 def parse_expansion(expansion_div) -> str:
-    """Parse the expansion name and set image handler"""
+    """Parse the expansion name"""
     second_a = expansion_div.findAll("a")[1].text
     return second_a
-    # return WIZARDS_BASE_URL + expansion_div.find("img")["src"].lstrip("../../")
 
 
 LABEL_DICT = {
@@ -115,7 +114,7 @@ LABEL_DICT = {
 def scrape_card(url: str) -> dict:
     """Scrape a WOTC magic card webpage and extract the cards details for
     embedding into a Discord message"""
-    __log__.debug("Scraping WOTC Magic card at: {}".format(url))
+    __log__.info("Scraping WOTC Magic card at: {}".format(url))
 
     soup = BeautifulSoup(urlopen(url), "lxml")
 
